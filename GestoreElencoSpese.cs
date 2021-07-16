@@ -20,30 +20,32 @@ namespace Week1.Esercitazione
                 using (StreamReader reader = File.OpenText(e.FullPath))
                 {
                     Console.WriteLine($"Contenuto del file {e.Name}");
-                    string data = reader.ReadLine();
-                    
+                    string line = reader.ReadLine();
 
-                    while (data != null)
+
+                    while (line != null)
                     {
-                         data = reader.ReadLine();
-                        string instanceData = reader.ReadLine();
-                        string[] values = instanceData.Split(";");
 
-                        DateTime.TryParse(values[0], out DateTime d);
-                        Double.TryParse(values[3], out double totamout);
+                        string[] datiSpesa = line.Split(";");
+                        DateTime.TryParse(datiSpesa[0], out DateTime d);
+                        Double.TryParse(datiSpesa[3], out double totAmount);
+                      
 
-                        new Spesa()
+                    Spesa s = new Spesa()
                         {
+                            
+                           ExpenseDate = d,
 
-                            ExpenseDate = d,
+                           ItemCategory = datiSpesa[1],
+                           Description = datiSpesa[2],
 
-                            ItemCategory = values[1],
-                            Description = values[2],
-
-                            ToTAmount = totamout
+                           ToTAmount = totAmount
                         };
+                   
 
-                       Console.WriteLine(new Spesa().ExpenseDate + "; " + new Spesa().ItemCategory + "; " + new Spesa().Description + "; " + new Spesa().ToTAmount);
+                       Console.WriteLine(s.ExpenseDate + "; " + s.ItemCategory + "; " + s.Description + "; " + s.ToTAmount);
+                        line = reader.ReadLine();
+
                     }
 
 
